@@ -1,17 +1,17 @@
 const { Router } = require("express");
 const User = require("../models/user");
 
-const router = Router();
+const userRouter = Router();
 
-router.get("/signup", (req, res) => {
+userRouter.get("/signup", (req, res) => {
   res.render("signup");
 });
 
-router.get("/signin", (req, res) => {
+userRouter.get("/signin", (req, res) => {
   res.render("signup");
 });
 
-router.post("/signup", async (req, res) => {
+userRouter.post("/signup", async (req, res) => {
   const { fullName, email, password } = req.body;
   console.log(fullName);
   await User.create({
@@ -22,7 +22,7 @@ router.post("/signup", async (req, res) => {
   return res.redirect("/");
 });
 
-router.post("/signin", async (req, res) => {
+userRouter.post("/signin", async (req, res) => {
   const { email, password } = req.body;
   try {
     const token = await User.checkUserAndCreateToken(email, password);
@@ -36,8 +36,8 @@ router.post("/signin", async (req, res) => {
   }
 });
 
-router.get("/logout", (req, res) => {
+userRouter.get("/logout", (req, res) => {
   res.clearCookie("token").redirect("/user/signup");
 });
 
-module.exports = router;
+module.exports = userRouter;

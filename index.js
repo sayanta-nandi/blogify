@@ -1,7 +1,8 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
-const router = require("./routes/user");
+const userRouter = require("./routes/user");
+const blogRouter = require("./routes/blog");
 var cookieParser = require("cookie-parser");
 const { checkAuthCookie } = require("./middleware/auth");
 
@@ -17,8 +18,8 @@ app.set("views", path.resolve("./views")); //for html
 app.use(express.static("public")); //for css
 
 app.use(express.urlencoded({ extended: false })); //for decode form data
-app.use(cookieParser());
-app.use(checkAuthCookie("token"));
+app.use(cookieParser()); //to access cookie
+app.use(checkAuthCookie("token")); //for authentication -> if cookie is there, it attach it to req.user
 
 app.get("/", (req, res) => {
   return res.render("home", {
@@ -26,6 +27,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/user", router);
+app.use("/user", userRouter);
+app.use("/blog", blogRouter);
 
 app.listen(PORT, () => console.log(`Server started at ${PORT}`));
