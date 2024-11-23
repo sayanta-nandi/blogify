@@ -3,6 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const userRouter = require("./routes/user");
 const blogRouter = require("./routes/blog");
+const Blog = require("./models/blog");
 var cookieParser = require("cookie-parser");
 const { checkAuthCookie } = require("./middleware/auth");
 
@@ -21,9 +22,11 @@ app.use(express.urlencoded({ extended: false })); //for decode form data
 app.use(cookieParser()); //to access cookie
 app.use(checkAuthCookie("token")); //for authentication -> if cookie is there, it attach it to req.user
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+  const blogs = await Blog.find({});
   return res.render("home", {
     user: req.user,
+    blogs: blogs,
   });
 });
 
