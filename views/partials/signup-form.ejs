@@ -5,21 +5,21 @@
         <h2>Welcome</h2>
         <label>
             <span>Email</span>
-            <input type="email" name="email"/>
+            <input type="email" name="email" />
         </label>
         <label>
             <span>Password</span>
-            <input type="password" name="password"/>
+            <input type="password" name="password" />
         </label>
         <p class="forgot-pass">Forgot password?</p>
         <div class="button-div">
             <button type="submit" class="submit">Sign In</button>
         </div>
         <% if (locals.error) { %>
-        <div class="alert alert-danger" role="alert">
-            <%= locals.error %>
-        </div>
-        <% } %>
+            <div class="alert alert-danger" role="alert">
+                <%= locals.error %>
+            </div>
+            <% } %>
     </form>
     <div class="sub-cont">
         <div class="img">
@@ -36,19 +36,23 @@
                 <span class="m--in">Sign In</span>
             </div>
         </div>
-        <form class="form sign-up" action="/user/signup" method="POST">
+        <form class="form sign-up" enctype="multipart/form-data" action="/user/signup" method="POST">
             <h2>Create your Account</h2>
             <label>
+                <span>Profile img</span>
+                <input type="file" name="profileImg" />
+            </label>
+            <label>
                 <span>Name</span>
-                <input type="text" name="fullName"/>
+                <input type="text" name="fullName" />
             </label>
             <label>
                 <span>Email</span>
-                <input type="email" name="email"/>
+                <input type="email" name="email" />
             </label>
             <label>
                 <span>Password</span>
-                <input type="password" name="password"/>
+                <input type="password" name="password" />
             </label>
             <div class="button-div">
                 <button type="submit" class="submit">Sign Up</button>
