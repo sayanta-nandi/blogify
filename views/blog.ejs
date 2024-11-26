@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Blog</title>
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+        <div class="container" style="display: flex; flex-direction: column; gap: 10px;">
+            <h1>
+                <%= locals.blog.title %>
+            </h1>
+            <img width="700px" src="<%= locals.blog.coverImgURL %>">
+            <pre><%= locals.blog.body %></pre>
+            <%- include('./partials/script') %>
+        </div>
+        <div class="container" style="
+        display: flex; align-items: center;
+        gap: 5px;">
+            <div style="
+                border-radius: 50%;
+                overflow: hidden;
+                ">
+                <img width="50px" src="<%= locals.blog.createdBy.profileImageURL %>">
+            </div>
+            <div style="display: flex; align-items: center;">
+                <%= locals.blog.createdBy.fullName %>
+            </div>
+        </div>
+
+        <div class="container mt-4">
+            <h3>Comments(<%= locals.comments.length %>)</h3>
+            <% if (locals.user) { %>
+                <form action="/blog/comment/<%= locals.blog._id %>" method="post">
+                    <div class="mb-3">
+                        <textarea type="text" name="content" class="form-control" id="exampleInputEmail1"
+                            aria-describedby="emailHelp" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+                <% } %>
+
+                    <% comments.forEach(comment=> { %>
+                        <div class="container mt-3">
+                            <div class="container" style="
+                        display: flex; align-items: center;
+                        gap: 5px;">
+                                <div style="
+                                border-radius: 50%;
+                                overflow: hidden;
+                                ">
+                                    <img width="50px" src="<%= comment.createdBy.profileImageURL %>">
+                                </div>
+                                <div style="display: flex; align-items: center;">
+                                    <%= comment.createdBy.fullName %>
+                                </div>
+                            </div>
+                            <pre><%= comment.content %></pre>
+                        </div>
+                        <% }) %>
+
+        </div>
+
+
+</body>
+
+</html>

@@ -8,8 +8,7 @@
 
 <body>
     <%- include('./partials/nav') %>
-
-        <div>
+        <div style="display: flex; flex-wrap: wrap;">
             <% blogs.forEach(blog=> { %>
                 <div class="card m-4" style="width: 18rem;">
                     <img src="<%= blog.coverImgURL %>" class="card-img-top">
@@ -22,8 +21,6 @@
                 </div>
                 <% }) %>
         </div>
-
-
         <%- include('./partials/script') %>
 </body>
 
