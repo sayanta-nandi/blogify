@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
@@ -8,9 +10,9 @@ var cookieParser = require("cookie-parser");
 const { checkAuthCookie } = require("./middleware/auth");
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
-mongoose.connect("mongodb://localhost:27017/blogify").then((err) => {
+mongoose.connect(process.env.MONGO_URL).then((err) => {
   console.log("mongoDB is connected");
 }); //for connecting mongo
 
@@ -23,7 +25,7 @@ app.use(cookieParser()); //to access cookie
 app.use(checkAuthCookie("token")); //for authentication -> if cookie is there, it attach it to req.user
 
 app.get("/", async (req, res) => {
-  const blogs = await Blog.find({});
+  const blogs = await Blog.find({}).populate("createdBy");
   return res.render("home", {
     user: req.user,
     blogs: blogs,

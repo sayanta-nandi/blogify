@@ -27,13 +27,17 @@ userRouter.get("/signin", (req, res) => {
 userRouter.post("/signup", upload.single("profileImg"), async (req, res) => {
   const { fullName, email, password } = req.body;
   console.log(fullName);
-  await User.create({
-    fullName: fullName,
-    email: email,
-    password: password,
-    profileImageURL: `/uploads/${req.file.filename}`,
-  });
-  return res.redirect("/");
+  try {
+    await User.create({
+      fullName: fullName,
+      email: email,
+      password: password,
+      profileImageURL: `/uploads/${req.file.filename}`,
+    });
+    return res.redirect("/");
+  } catch (error) {
+    return res.render("signup", { error: error });
+  }
 });
 
 userRouter.post("/signin", async (req, res) => {

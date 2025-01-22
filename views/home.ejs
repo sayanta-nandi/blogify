@@ -10,12 +10,25 @@
     <%- include('./partials/nav') %>
         <div style="display: flex; flex-wrap: wrap;">
             <% blogs.forEach(blog=> { %>
-                <div class="card m-4" style="width: 18rem;">
+                <div class="card text-bg-dark m-4" style="width: 18rem;">
                     <img src="<%= blog.coverImgURL %>" class="card-img-top">
                     <div class="card-body">
                         <h5 class="card-title">
                             <%= blog.title %>
                         </h5>
+                        <div class="container mb-3" style="
+                                display: flex; align-items: center;
+                                gap: 5px;">
+                            <div style="
+                                        border-radius: 50%;
+                                        overflow: hidden;
+                                        ">
+                                <img width="30px" src="<%= blog.createdBy.profileImageURL %>">
+                            </div>
+                            <div style="display: flex; align-items: center;">
+                                <%= blog.createdBy.fullName %>
+                            </div>
+                        </div>
                         <a href="/blog/<%= blog._id %>" class="btn btn-primary">Read</a>
                     </div>
                 </div>

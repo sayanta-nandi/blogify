@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/sign-up.css">
     <%- include('./partials/head') %>
-    <title>Sign Up</title>
+        <title>Sign Up</title>
 </head>
+
 <body>
     <%- include("./partials/nav") %>
-    <%- include('./partials/signup-form.ejs') %>
-    <%- include('./partials/script') %>
-    <script>
-        document.querySelector(".img__btn").addEventListener("click", function () {
-                document.querySelector(".cont").classList.toggle("s--signup");
-            });
+        <% if (locals.error) { %>
+            <%= error %>
+                <% } %>
+                    <%- include('./partials/signup-form.ejs') %>
+                        <%- include('./partials/script') %>
+                            <script>
+                                document.querySelector(".img__btn").addEventListener("click", function () {
+                                    document.querySelector(".cont").classList.toggle("s--signup");
+                                });
 
-    </script>
+                            </script>
 </body>
+
 </html>
